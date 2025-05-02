@@ -68,11 +68,25 @@ function Header() {
 function Menu() {
   return (
     <main className='menu'>
-    <div>
       <h2>Our Menu</h2>
-      <Pizza />
-    </div>
+    <ul className='pizzas'>
+      {pizzaData.map((item, index) => {
+        return <Pizza key={index} pizzaObj={item}/>
+      })}
+    </ul>
     </main>
+  )
+}
+
+function Pizza(props) {
+  return (
+    <li className='pizza'>
+      <img src={props.pizzaObj.photoName} alt={props.pizzaObj.name}/>
+      <div>
+        <h3>{props.pizzaObj.name}</h3>
+        <p>{props.pizzaObj.ingredients}</p>
+      </div>
+    </li>
   )
 }
 function Footer() {
@@ -82,14 +96,10 @@ function Footer() {
   const isOpen = hour >= openHour && hour <= closeHour
 
 
-  return <footer className='footer'>{new Date().toLocaleDateString()}. We're currently {isOpen ? 'Open' : 'Closed'}.</footer>
-}
-
-function Pizza() {
   return (
     <div>
-      <img src='pizzas/spinaci.jpg'></img>
-      <h3>Pizza</h3>
+      <footer className='footer'>{new Date().toLocaleDateString()}. We're currently {isOpen ? 'Open' : 'Closed'}. {isOpen && `We're open until ${closeHour}:00`}</footer>
+      <button className='btn'>Order Now</button>
     </div>
   )
 }
