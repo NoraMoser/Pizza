@@ -69,6 +69,7 @@ function Menu() {
   return (
     <main className='menu'>
       <h2>Our Menu</h2>
+      <p>Authentic Italian Cuisine</p>
     <ul className='pizzas'>
       {pizzaData.map((item, index) => {
         return <Pizza key={index} pizzaObj={item}/>
@@ -78,13 +79,13 @@ function Menu() {
   )
 }
 
-function Pizza(props) {
+function Pizza({pizzaObj}) {
   return (
     <li className='pizza'>
-      <img src={props.pizzaObj.photoName} alt={props.pizzaObj.name}/>
+      <img src={pizzaObj.photoName} alt={pizzaObj.name}/>
       <div>
-        <h3>{props.pizzaObj.name}</h3>
-        <p>{props.pizzaObj.ingredients}</p>
+        <h3>{pizzaObj.name}</h3>
+        <p>{pizzaObj.ingredients}</p>
       </div>
     </li>
   )
@@ -98,7 +99,18 @@ function Footer() {
 
   return (
     <div>
-      <footer className='footer'>{new Date().toLocaleDateString()}. We're currently {isOpen ? 'Open' : 'Closed'}. {isOpen && `We're open until ${closeHour}:00`}</footer>
+      <footer className='footer'>
+        <Order isOpen={isOpen} closeHour={closeHour}/>
+        <p>{new Date().toLocaleDateString()}. We're currently {isOpen ? 'Open' : 'Closed'}.</p>
+      </footer>
+    </div>
+  )
+}
+
+function Order({isOpen, closeHour}) {
+  return (
+    <div className='order'>
+      <p>{isOpen && `We're open until ${closeHour}:00`}</p>
       <button className='btn'>Order Now</button>
     </div>
   )
